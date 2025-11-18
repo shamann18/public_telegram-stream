@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Последние сообщения</title>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  .msg { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
+  .time { color: #888; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<h2>Последние 20 сообщений</h2>
+
+<div id="messages"></div>
+
+<script>
+fetch("messages.json")
+  .then(r => r.json())
+  .then(data => {
+    const container = document.getElementById("messages");
+    data.forEach(m => {
+      const div = document.createElement("div");
+      div.className = "msg";
+      div.innerHTML = `
+        <div class="time">${m.time}</div>
+        <div class="text">${m.text}</div>
+      `;
+      container.appendChild(div);
+    });
+  });
+</script>
+
+</body>
+</html>
